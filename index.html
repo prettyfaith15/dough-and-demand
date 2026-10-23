@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Dough &amp; Demand</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="style.css">
+<!-- PyScript runtime -->
+<link rel="stylesheet" href="https://pyscript.net/releases/2025.8.1/core.css">
+<script type="module" src="https://pyscript.net/releases/2025.8.1/core.js"></script>
+</head>
+<body>
+<div class="bg" id="bg" aria-hidden="true">
+  <svg class="sym" xmlns="http://www.w3.org/2000/svg"><defs>
+    <symbol id="i-donut" viewBox="0 0 64 64"><circle cx="32" cy="32" r="24"/><circle cx="32" cy="32" r="8"/><path d="M17 22l5 3M45 15l-3 5M50 38l-5-2M20 47l5-3M34 11v5"/></symbol>
+    <symbol id="i-cupcake" viewBox="0 0 64 64"><path d="M17 36h30l-5 20H22z"/><path d="M14 36c0-9 7-11 9-15 2-6 16-6 18 0 2 4 9 6 9 15z"/><circle cx="32" cy="11" r="3"/></symbol>
+    <symbol id="i-cookie" viewBox="0 0 64 64"><circle cx="32" cy="32" r="24"/><circle cx="24" cy="24" r="2.5"/><circle cx="39" cy="27" r="2.5"/><circle cx="28" cy="39" r="2.5"/><circle cx="42" cy="41" r="2.5"/><circle cx="33" cy="31" r="2"/></symbol>
+    <symbol id="i-loaf" viewBox="0 0 64 64"><path d="M10 30c0-10 10-16 22-16s22 6 22 16c0 4-3 6-6 6v14H16V36c-3 0-6-2-6-6z"/><path d="M24 24l4 8M34 22l4 8M44 24l3 7"/></symbol>
+    <symbol id="i-slice" viewBox="0 0 64 64"><path d="M8 46V32L56 24v22z"/><path d="M8 39l48-8"/><circle cx="40" cy="17" r="4"/><path d="M40 13c0-3 2-5 4-6"/></symbol>
+    <symbol id="i-croissant" viewBox="0 0 64 64"><path d="M8 40c4-14 14-22 24-22s20 8 24 22c-6 2-10-2-14-2s-6 4-10 4-6-4-10-4-10 4-14 2z"/><path d="M24 22l-2 14M32 18v16M40 22l2 14"/></symbol>
+  </defs></svg>
+</div>
+<header class="top">
+  <div class="bar">
+    <a class="logo" href="#top">Dough <b>&amp;</b> Demand</a>
+    <nav class="links" aria-label="Sections">
+      <a href="#menu">Menu</a><a href="#combo">Build a combo</a><a href="#celebrate">Cakes</a><a href="#order">Order</a>
+    </nav>
+    <button class="cart-btn" id="open-cart" type="button" aria-label="Open your order">Your order <span class="n" id="cart-n">0</span></button>
+  </div>
+</header>
+
+<main class="wrap" id="top">
+  <section class="hero">
+    <div class="hero-grid">
+      <div>
+        <p class="eyebrow">Fresh-baked for students</p>
+        <h1>Warm bakes that fit a <em>student budget.</em></h1>
+        <p class="lead">Cookies, brownies, pastries, savory rolls and cakes, baked fresh and priced at ₱30 to ₱50. Order for pickup or reserve a cake for a birthday.</p>
+        <div class="cta-row">
+          <a class="btn primary" href="#menu">See the menu</a>
+          <a class="btn" href="#combo">Build a combo</a>
+        </div>
+        <div class="chips"><span class="chip">Most items ₱30–₱50</span><span class="chip">Combos ₱75–₱100</span><span class="chip">Pre-orders open</span></div>
+      </div>
+      <div class="collage" aria-hidden="true">
+        <img src="img/chocolate-chip-cookie.jpg" alt="">
+        <img src="img/cinnamon-roll.jpg" alt="">
+        <img src="img/cheese-bread.jpg" alt="">
+      </div>
+    </div>
+  </section>
+
+  <section id="menu">
+    <div class="sec-head">
+      <p class="eyebrow">The menu</p>
+      <h2>Pick your snack</h2>
+      <p>Cookies and brownies are the student favorites. Tap Add to start your order.</p>
+    </div>
+    <div class="tabs" role="group" aria-label="Menu categories" id="tabs"></div>
+    <div class="grid" id="menu-grid"><p class="empty">Loading the menu...</p></div>
+  </section>
+
+  <section id="combo">
+    <div class="combo">
+      <div class="sec-head">
+        <p class="eyebrow">Build your student combo</p>
+        <h2>Mix sweet and savory for ₱75–₱100</h2>
+        <p>Choose a few items and watch the total. Aim for the yellow zone to land in the combo budget.</p>
+      </div>
+      <div class="combo-grid">
+        <div class="pick-list" id="pick-list"><p class="empty">Loading...</p></div>
+        <div class="meter-box">
+          <div class="sticky-sum">
+          <div class="total-big" id="combo-total">₱0</div>
+          <div>
+            <div class="meter" aria-hidden="true"><div class="zone"></div><div class="fill" id="combo-fill" style="width:0"></div></div>
+            <div class="meter-labels" aria-hidden="true"><span>₱0</span><span style="left:75%">₱75</span><span>₱100</span></div>
+          </div>
+          <p class="verdict" id="combo-verdict" aria-live="polite">Add items to start.</p>
+          </div>
+          <ul class="combo-list" id="combo-list"></ul>
+          <button class="btn primary" id="combo-add" type="button" disabled>Add combo to my order</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="celebrate">
+    <div class="cake">
+      <img src="img/mini-birthday-cake.jpg" alt="Mini birthday cake with pink ribbons and a Happy Birthday message">
+      <div>
+        <p class="eyebrow">Pre-order only</p>
+        <h2>Mini birthday cake</h2>
+        <p>A small cake in its own box, with pink ribbon bows and your own message on top. Order at least 2 days ahead and pick it up on the day.</p>
+        <span class="price">₱250</span>
+        <div id="cake-ctl"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="order">
+    <div class="sec-head">
+      <p class="eyebrow">Place your order</p>
+      <h2>Pickup or pre-order</h2>
+      <p>Fill in your details and we will turn your order into a message you can send us on Facebook Messenger.</p>
+    </div>
+    <div class="order">
+      <div class="panel">
+        <h3>Your order</h3>
+        <div id="order-lines"></div>
+      </div>
+      <form class="panel" id="order-form" novalidate>
+        <h3>Your details</h3>
+        <div class="field"><label for="f-name">Name</label><input id="f-name" autocomplete="name" placeholder="Juan Dela Cruz"></div>
+        <div class="field"><label for="f-contact">Messenger name or mobile number</label><input id="f-contact" placeholder="So we can confirm your order"></div>
+        <div class="two">
+          <div class="field"><label for="f-date">Pickup date</label><input id="f-date" type="date"><span class="hint" id="date-hint"></span></div>
+          <div class="field"><label for="f-time">Pickup time</label>
+            <select id="f-time"><option>7:00 AM</option><option>8:00 AM</option><option>9:00 AM</option><option>10:00 AM</option><option>11:00 AM</option><option selected>12:00 PM</option><option>1:00 PM</option><option>2:00 PM</option><option>3:00 PM</option><option>4:00 PM</option><option>5:00 PM</option></select></div>
+        </div>
+        <div class="field"><label for="f-occ">Occasion</label>
+          <select id="f-occ"><option>Just snacks</option><option>Birthday</option><option>Class or org event</option><option>Other</option></select></div>
+        <div class="field" id="cake-msg-field" hidden><label for="f-cake">Message on the mini cake</label><input id="f-cake" maxlength="40" placeholder="Happy Birthday, Mia!"></div>
+        <div class="field"><label for="f-notes">Notes (optional)</label><textarea id="f-notes" placeholder="Allergies, packaging, anything we should know"></textarea></div>
+        <p class="err" id="form-err" role="alert"></p>
+        <button class="btn primary" type="submit" style="width:100%">Make my order message</button>
+        <div class="result" id="result">
+          <div class="done" role="status"><b>Your order message is ready.</b><span>Copy it or save it as an image, then send it to our Facebook page. We confirm your order when we reply.</span></div>
+          <pre id="result-text"></pre>
+          <div class="acts">
+            <button class="btn primary" type="button" id="copy-msg">Copy message</button>
+            <button class="btn" type="button" id="save-img">Save as image (JPG)</button>
+            <a class="btn" id="msgr" href="#" target="_blank" rel="noopener" hidden>Open Messenger</a>
+          </div>
+          <p class="status" id="status" role="status" aria-live="polite"></p>
+          <div class="imgbox" id="imgbox" hidden><img id="receipt-img" alt="Your order message as an image"><p class="note">Press and hold the image (right-click on a computer) and choose Save image.</p></div>
+          <div class="acts" style="margin-top:14px"><button class="btn" type="button" id="edit-order">Edit my order</button></div>
+        </div>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <div><b>Dough &amp; Demand</b><br>Fresh, affordable bakes for students.</div>
+    <div><b>Open</b><br>Monday to Saturday</div>
+    <div><b>Order</b><br>Facebook Messenger: Dough &amp; Demand<br>Pickup near campus, exact spot confirmed on order</div>
+  </div>
+</footer>
+
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer" aria-label="Your order" aria-hidden="true">
+  <header><h3>Your order</h3><button class="x" id="close-cart" type="button" aria-label="Close">&times;</button></header>
+  <div class="scroll" id="drawer-lines"></div>
+  <footer>
+    <div class="sum"><span>Total</span><span id="drawer-total">₱0</span></div>
+    <button class="btn primary" id="go-order" type="button">Continue to order form</button>
+  </footer>
+</aside>
+<div class="toast" id="toast" role="status"></div>
+
+<!-- All interactivity is written in Python. See main.py -->
+<script type="py" src="./main.py" config="./pyscript.toml"></script>
+</body>
+</html>

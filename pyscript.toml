@@ -1,0 +1,11 @@
+# PyScript settings: copy these Python files next to main.py in the browser
+[files]
+"./menu_data.py" = "./menu_data.py"
+"./state.py" = "./state.py"
+"./helpers.py" = "./helpers.py"
+"./cart.py" = "./cart.py"
+"./cart_ui.py" = "./cart_ui.py"
+"./menu.py" = "./menu.py"
+"./combo.py" = "./combo.py"
+"./order_form.py" = "./order_form.py"
+"./background.py" = "./background.py"
